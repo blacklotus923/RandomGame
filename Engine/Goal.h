@@ -17,16 +17,16 @@ public:
 	}
 	bool TestCollision( const Dude& dude ) const
 	{
-		const int duderight = dude.GetX() + dude.GetWidth();
-		const int dudebottom = dude.GetY() + dude.GetHeight();
+		const int duderight = (int)dude.GetX() + (int)dude.GetWidth();
+		const int dudebottom = (int)dude.GetY() + (int)dude.GetHeight();
 		const int pooright = x + dimension;
 		const int poobottom = y + dimension;
 
 		return
 			duderight >= x &&
-			dude.GetX() <= pooright &&
+			(int)dude.GetX() <= pooright &&
 			dudebottom >= y &&
-			dude.GetY() <= poobottom;
+			(int)dude.GetY() <= poobottom;
 	}
 	void Respawn( int in_x,int in_y )
 	{
