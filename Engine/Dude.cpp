@@ -346,23 +346,23 @@ void Dude::Draw( Graphics& gfx ) const
 	gfx.PutPixel( 12 + int_x,19 + int_y,0,0,0 );
 }
 
-void Dude::Update( const Keyboard & kbd )
+void Dude::Update( const Keyboard & kbd, float dt )
 {
 	if( kbd.KeyIsPressed( VK_RIGHT ) )
 	{
-		x += speed;
+		x += speed * dt;
 	}
 	if( kbd.KeyIsPressed( VK_LEFT ) )
 	{
-		x -= speed;
+		x -= speed * dt;
 	}
 	if( kbd.KeyIsPressed( VK_DOWN ) )
 	{
-		y += speed;
+		y += speed * dt;
 	}
 	if( kbd.KeyIsPressed( VK_UP ) )
 	{
-		y -= speed;
+		y -= speed * dt;
 	}
 }
 

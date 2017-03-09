@@ -31,9 +31,10 @@ Game::Game( MainWindow& wnd )
 	xDist( 0,770 ),
 	yDist( 0,570 ),
 	goal( (int)xDist( rng ),(int)yDist( rng ) ),
-	meter( 20,20 )
+	meter( 20,20 ),
+	deltaTime(ft.Mark())
 {
-	std::uniform_real_distribution<float> vDist( -2.5f,2.5f );
+	std::uniform_real_distribution<float> vDist( -150.0f,150.0f);
 	for( int i = 0; i < nPoo; ++i )
 	{
 		poos[i].Init( xDist( rng ),yDist( rng ),vDist( rng ),vDist( rng ) );
@@ -43,6 +44,7 @@ Game::Game( MainWindow& wnd )
 
 void Game::Go()
 {
+	deltaTime = ft.Mark();
 	gfx.BeginFrame();	
 	UpdateModel();
 	ComposeFrame();
@@ -54,12 +56,12 @@ void Game::UpdateModel()
 	goal.UpdateColor();
 	if( isStarted && !isGameOver )
 	{
-		dude.Update( wnd.kbd );
+		dude.Update( wnd.kbd, deltaTime );
 		dude.ClampToScreen();
 
 		for( int i = 0; i < nPoo; ++i )
 		{
-			poos[i].Update();
+			poos[i].Update(deltaTime);
 			if( poos[i].TestCollision( dude ) )
 			{
 				isGameOver = true;
