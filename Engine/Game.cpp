@@ -21,6 +21,7 @@
 #include "MainWindow.h"
 #include "Game.h"
 #include <random>
+#include <math.h>
 
 Game::Game( MainWindow& wnd )
 	:
@@ -79,6 +80,29 @@ void Game::UpdateModel()
 		{
 			isStarted = true;
 		}
+	}
+}
+
+void Game::ComposeFrame()
+{
+	if( !isStarted )
+	{
+		DrawTitleScreen( 325,211 );
+	}
+	else
+	{
+		goal.Draw( gfx );
+		for( int i = 0; i < nPoo; ++i )
+		{
+			poos[i].Draw( gfx );
+		}
+		dude.Draw( gfx );
+		if( isGameOver )
+		{
+			DrawGameOver( 358,268 );
+		}
+		meter.Draw( gfx );
+		//gfx.DrawCircleDiam(200, 200, 100, Colors::Green);
 	}
 }
 
@@ -28428,24 +28452,3 @@ void Game::DrawTitleScreen( int x,int y )
 	gfx.PutPixel( 149 + x,174 + y,208,34,34 );
 }
 
-void Game::ComposeFrame()
-{
-	if( !isStarted )
-	{
-		DrawTitleScreen( 325,211 );
-	}
-	else
-	{
-		goal.Draw( gfx );
-		for( int i = 0; i < nPoo; ++i )
-		{
-			poos[i].Draw( gfx );
-		}
-		dude.Draw( gfx );
-		if( isGameOver )
-		{
-			DrawGameOver( 358,268 );
-		}
-		meter.Draw( gfx );
-	}
-}

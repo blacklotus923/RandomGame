@@ -44,6 +44,7 @@ private:
 	/*  User Functions              */
 	void DrawGameOver( int x,int y );
 	void DrawTitleScreen( int x,int y );
+	void DrawCircle(int center_x, int center_y, int radius, Color c);
 	/********************************/
 private:
 	MainWindow& wnd;
