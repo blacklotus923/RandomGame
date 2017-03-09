@@ -102,7 +102,6 @@ void Game::ComposeFrame()
 			DrawGameOver( 358,268 );
 		}
 		meter.Draw( gfx );
-		//gfx.DrawCircleDiam(200, 200, 100, Colors::Green);
 	}
 }
 
