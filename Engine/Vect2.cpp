@@ -1,15 +1,6 @@
 #include "Vect2.h"
 #include <cmath>
 
-Vect2::Vect2()
-{
-}
-
-
-Vect2::~Vect2()
-{
-}
-
 Vect2::Vect2(const float in_x, const float in_y)
 {
 	x = in_x;

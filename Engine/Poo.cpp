@@ -2,67 +2,65 @@
 #include "Graphics.h"
 #include <assert.h>
 
-void Poo::Init(float in_x, float in_y, float in_vx, float in_vy )
+void Poo::Init( Vect2 _pos, Vect2 _vel )
 {
 	assert( initialized == false );
-	x = in_x;
-	y = in_y;
-	vx = in_vx;
-	vy = in_vy;
+	pos = _pos;
+	vel = _vel;
 	initialized = true;
 }
 
 void Poo::Update(float dt)
 {
 	assert( initialized == true );
-	x += vx * dt;
-	y += vy * dt;
+	pos.x += vel.x * dt;
+	pos.y += vel.y * dt;
 
-	const float right = x + width;
-	if( x < 0 )
+	const float right = pos.x + width;
+	if(pos.x < 0 )
 	{
-		x = 0;
-		vx = -vx;
+		pos.x = 0;
+		vel.x = -vel.x;
 	}
 	else if( right >= (float)Graphics::ScreenWidth )
 	{
-		x = (float)(Graphics::ScreenWidth - 1.0f) - width;
-		vx = -vx;
+		pos.x = (float)(Graphics::ScreenWidth - 1.0f) - width;
+		vel.x = -vel.x;
 	}
 
-	const float bottom = y + height;
-	if( y < 0 )
+	const float bottom = pos.y + height;
+	if(pos.y < 0 )
 	{
-		y = 0;
-		vy = -vy;
+		pos.y = 0;
+		vel.y = -vel.y;
 	}
 	else if( bottom >= (float)Graphics::ScreenHeight )
 	{
-		y = (float)(Graphics::ScreenHeight - 1.0f) - height;
-		vy = -vy;
+		pos.y = (float)(Graphics::ScreenHeight - 1.0f) - height;
+		vel.y = -vel.y;
 	}
 }
 
 bool Poo::TestCollision( const Dude& dude ) const
 {
 	assert( initialized == true );
-	const float duderight = dude.GetX() + dude.GetWidth();
-	const float dudebottom = dude.GetY() + dude.GetHeight();
-	const float pooright = x + width;
-	const float poobottom = y + height;
+	const float duderight = dude.GetPos().x + dude.GetWidth();
+	const float dudebottom = dude.GetPos().y + dude.GetHeight();
+	const float pooright = pos.x + width;
+	const float poobottom = pos.y + height;
 
 	return
-		duderight >= x &&
-		dude.GetX() <= pooright &&
-		dudebottom >= y &&
-		dude.GetY() <= poobottom;
+		duderight >= pos.x &&
+		dude.GetPos().x <= pooright &&
+		dudebottom >= pos.y &&
+		dude.GetPos().y <= poobottom;
 }
 
 void Poo::Draw( Graphics& gfx ) const
 {
 	assert( initialized == true );
-	int int_x = (int)x;
-	int int_y = (int)y;
+	int int_x = (int)pos.x;
+	int int_y = (int)pos.y;
 	gfx.PutPixel( 14 + int_x,0 + int_y,138,77,0 );
 	gfx.PutPixel( 7 + int_x,1 + int_y,138,77,0 );
 	gfx.PutPixel( 13 + int_x,1 + int_y,138,77,0 );

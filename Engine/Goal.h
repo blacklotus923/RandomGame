@@ -2,36 +2,35 @@
 
 #include "Graphics.h"
 #include "Dude.h"
+#include "Vect2.h"
 
 class Goal
 {
 public:
-	Goal( int in_x,int in_y )
+	Goal( Vect2 _pos )
 		:
-		x( in_x ),
-		y( in_y )
+		pos(_pos)
 	{}
 	void Draw( Graphics& gfx ) const
 	{
-		gfx.DrawRectDim( x,y,dimension,dimension,c );
+		gfx.DrawRectDim((int)pos.x, (int)pos.y,dimension,dimension,c );
 	}
 	bool TestCollision( const Dude& dude ) const
 	{
-		const int duderight = (int)dude.GetX() + (int)dude.GetWidth();
-		const int dudebottom = (int)dude.GetY() + (int)dude.GetHeight();
-		const int pooright = x + dimension;
-		const int poobottom = y + dimension;
+		const int duderight = (int)dude.GetPos().x + (int)dude.GetWidth();
+		const int dudebottom = (int)dude.GetPos().y + (int)dude.GetHeight();
+		const int pooright = (int)pos.x + dimension;
+		const int poobottom = (int)pos.y + dimension;
 
 		return
-			duderight >= x &&
-			(int)dude.GetX() <= pooright &&
-			dudebottom >= y &&
-			(int)dude.GetY() <= poobottom;
+			duderight >= (int)pos.x &&
+			(int)dude.GetPos().x <= pooright &&
+			dudebottom >= (int)pos.y &&
+			(int)dude.GetPos().y <= poobottom;
 	}
-	void Respawn( int in_x,int in_y )
+	void Respawn( Vect2 _pos )
 	{
-		x = in_x;
-		y = in_y;
+		pos = _pos;
 	}
 	void UpdateColor()
 	{
@@ -62,6 +61,5 @@ private:
 	static constexpr int dimension = 20;
 	Color c = { 127,0,0 };
 	bool colorIncreasing = true;
-	int x;
-	int y;
+	Vect2 pos;
 };

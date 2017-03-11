@@ -27,8 +27,6 @@ public:
 	Vect2& Normalize();
 	Vect2 GetNormalized() const;
 
-
-	~Vect2();
 public:
 	float x;
 	float y;

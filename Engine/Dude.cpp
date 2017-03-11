@@ -3,31 +3,66 @@
 
 void Dude::ClampToScreen()
 {
-	const float right = x + width;
-	if( x < 0.0f)
+	const float right = pos.x + width;
+	if(pos.x < 0.0f)
 	{
-		x = 0.0f;
+		pos.x = 0.0f;
 	}
 	else if( right >= (float)Graphics::ScreenWidth )
 	{
-		x = (float)(Graphics::ScreenWidth - 1) - width;
+		pos.x = (float)(Graphics::ScreenWidth - 1) - width;
 	}
 
-	const float bottom = y + height;
-	if( y < 0.0f)
+	const float bottom = pos.y + height;
+	if(pos.y < 0.0f)
 	{
-		y = 0.0f;
+		pos.y = 0.0f;
 	}
 	else if( bottom >= (float)Graphics::ScreenHeight )
 	{
-		y = (float)(Graphics::ScreenHeight - 1) - height;
+		pos.y = (float)(Graphics::ScreenHeight - 1) - height;
 	}
+}
+
+void Dude::Update( const Keyboard & kbd, float dt )
+{
+	if( kbd.KeyIsPressed( VK_RIGHT ) )
+	{
+		pos.x += speed * dt;
+	}
+	if( kbd.KeyIsPressed( VK_LEFT ) )
+	{
+		pos.x -= speed * dt;
+	}
+	if( kbd.KeyIsPressed( VK_DOWN ) )
+	{
+		pos.y += speed * dt;
+	}
+	if( kbd.KeyIsPressed( VK_UP ) )
+	{
+		pos.y -= speed * dt;
+	}
+}
+
+Vect2 Dude::GetPos() const
+{
+	return pos;
+}
+
+float Dude::GetWidth() const
+{
+	return width;
+}
+
+float Dude::GetHeight() const
+{
+	return height;
 }
 
 void Dude::Draw( Graphics& gfx ) const
 {
-	int int_x = (int)x;
-	int int_y = (int)y;
+	int int_x = (int)pos.x;
+	int int_y = (int)pos.y;
 	gfx.PutPixel( 7 + int_x,0 + int_y,0,0,0 );
 	gfx.PutPixel( 8 + int_x,0 + int_y,0,0,0 );
 	gfx.PutPixel( 9 + int_x,0 + int_y,0,0,0 );
@@ -344,44 +379,4 @@ void Dude::Draw( Graphics& gfx ) const
 	gfx.PutPixel( 10 + int_x,19 + int_y,0,0,0 );
 	gfx.PutPixel( 11 + int_x,19 + int_y,0,0,0 );
 	gfx.PutPixel( 12 + int_x,19 + int_y,0,0,0 );
-}
-
-void Dude::Update( const Keyboard & kbd, float dt )
-{
-	if( kbd.KeyIsPressed( VK_RIGHT ) )
-	{
-		x += speed * dt;
-	}
-	if( kbd.KeyIsPressed( VK_LEFT ) )
-	{
-		x -= speed * dt;
-	}
-	if( kbd.KeyIsPressed( VK_DOWN ) )
-	{
-		y += speed * dt;
-	}
-	if( kbd.KeyIsPressed( VK_UP ) )
-	{
-		y -= speed * dt;
-	}
-}
-
-float Dude::GetX() const
-{
-	return x;
-}
-
-float Dude::GetY() const
-{
-	return y;
-}
-
-float Dude::GetWidth() const
-{
-	return width;
-}
-
-float Dude::GetHeight() const
-{
-	return height;
 }
