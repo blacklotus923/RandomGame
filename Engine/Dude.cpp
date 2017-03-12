@@ -23,12 +23,24 @@ void Dude::ClampToScreen()
 	}
 }
 
+void Dude::Update(const Keyboard& kbd, float dt)
+{
+	Vect2 v = { 0.0f,0.0f };
+	if (kbd.KeyIsPressed(VK_UP)) v.y -= 1.0f;
+	if (kbd.KeyIsPressed(VK_DOWN)) v.y += 1.0f;
+	if (kbd.KeyIsPressed(VK_RIGHT)) v.x += 1.0f;
+	if (kbd.KeyIsPressed(VK_LEFT)) v.x -= 1.0f;
+
+	pos += v.GetNormalized() * speed * dt;
+}
+
 void Dude::Update(const Mouse& mouse, float dt)
 {
 	if (mouse.LeftIsPressed())
 	{
 		const Vect2 v = { (float)mouse.GetPosX(), (float)mouse.GetPosY() };
-		pos += (v - pos).GetNormalized() * speed * dt;
+		const Vect2 c = { pos.x + (width / 2), pos.y + (height / 2) };
+		pos += (v - c).GetNormalized() * speed * dt;
 	}
 }
 
