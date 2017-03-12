@@ -56,7 +56,7 @@ void Game::UpdateModel()
 	goal.UpdateColor();
 	if( isStarted && !isGameOver )
 	{
-		dude.Update( wnd.kbd, deltaTime );
+		dude.Update( wnd.mouse, deltaTime );
 		dude.ClampToScreen();
 
 		for( int i = 0; i < nPoo; ++i )
@@ -78,7 +78,7 @@ void Game::UpdateModel()
 	}
 	else
 	{
-		if( wnd.kbd.KeyIsPressed( VK_RETURN ) )
+		if( wnd.kbd.KeyIsPressed( VK_RETURN ) || wnd.mouse.LeftIsPressed())
 		{
 			isStarted = true;
 		}
