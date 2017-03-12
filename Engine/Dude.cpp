@@ -40,7 +40,7 @@ void Dude::Update(const Mouse& mouse, float dt)
 	{
 		const Vect2 v = { (float)mouse.GetPosX(), (float)mouse.GetPosY() };
 		const Vect2 c = { pos.x + (width / 2), pos.y + (height / 2) };
-		pos += (v - c).GetNormalized() * speed * dt;
+		if ((v-c).GetLengthSq() > 2.0f) pos += (v - c).GetNormalized() * speed * dt;
 	}
 }
 
